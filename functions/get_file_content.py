@@ -11,14 +11,15 @@ def get_file_content(working_directory, file_path):
         valid_target_dir = os.path.commonpath([working_dir_abs, target_dir]) == working_dir_abs
         if valid_target_dir == False:                                     
             return f'Error: Cannot read "{file_path}" as it is outside the permitted working directory'
-        if not os.path.isfile(file_path):
-            return f'Error: File not found or is not a regular file: "{file_path}"'
+        if not os.path.isfile(target_dir):
+            return f'Error: File not found or is not a regular file: "{target_dir}"'
         
-        open_file = open(file_path)
+        open_file = open(target_dir)
         content = open_file.read(MAX_CHARS)
         content_plus = open_file.read(MAX_CHARS + 1)
 
         if content_plus > content:
             content += f'[...File "{file_path}" truncated at {MAX_CHARS} characters]'
+        return content
     except Exception as e:
         return f"Error: {e}"
